@@ -10,6 +10,8 @@ public class Graphical extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 8639390771471694401L;
 	private JButton buton1;
 	private JPanel myPanel;
+	private String[] HTML;
+	private String URL;
 	JTextField text;
 	JTextPane affichage;
 
@@ -34,7 +36,21 @@ public class Graphical extends JFrame implements ActionListener {
 		myPanel.setLayout(layout);
 		JTextPane affichage=new JTextPane();
 
-		buton1.addActionListener(this);
+		buton1.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				JButton src=(JButton)evt.getSource();
+				URL=text.getText();
+				try {
+					HTML=WebGet.getHTML(URL,"/");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
 
 		myPanel.setBackground(Color.white);
 		text.setSize(200,20);
@@ -53,13 +69,7 @@ public class Graphical extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		Object src= evt.getSource();
-		if(src instanceof JButton){
-			src=(JButton) src;
 
-		}else if(src instanceof JTextPane){
-			src=(JTextPane) src;
-		}
 
 
 	}
