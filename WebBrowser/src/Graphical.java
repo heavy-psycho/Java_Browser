@@ -11,16 +11,16 @@ public class Graphical extends JFrame implements ActionListener {
 	private JButton buton1;
 	private JPanel myPanel;
 	private String[] HTML;
-	private String URL;
+	private String URL="java.sun.com";
 	JTextField text;
 	JTextPane affichage;
 
 	public static void main(String[] args) throws IOException{
-		String[] a=WebGet.getHTML(null,null);
+		/*String[] a=WebGet.getHTML(null,null);
 		for(int i=0;i<a.length;i++){
 			System.out.println(a[i]);
 		}
-		System.out.println("END OF DOCUMENT");
+		System.out.println("END OF DOCUMENT");*/
 		Graphical affiche = new Graphical();
 		affiche.affichage();
 	}
@@ -34,7 +34,7 @@ public class Graphical extends JFrame implements ActionListener {
 		text=new JTextField();
 		//affichage;
 		myPanel.setLayout(layout);
-		JTextPane affichage=new JTextPane();
+		final JTextArea affichage=new JTextArea();
 
 		buton1.addActionListener(new ActionListener(){
 
@@ -43,7 +43,19 @@ public class Graphical extends JFrame implements ActionListener {
 				JButton src=(JButton)evt.getSource();
 				URL=text.getText();
 				try {
-					HTML=WebGet.getHTML(URL,"/");
+					HTML=WebGet.getHTML(null,null);
+					System.out.println("HTML reçu");
+					for(int i=0;i<HTML.length;i++){
+						//affichage.setText(HTML[i]);
+						affichage.insert(HTML[i],i);
+						try{
+							Thread.sleep(1);
+						}catch(InterruptedException e){
+							System.err.println("Sleep interrompu");
+						}
+					}
+
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
